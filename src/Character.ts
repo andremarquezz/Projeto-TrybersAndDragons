@@ -32,21 +32,21 @@ class Character implements Fighter {
     return this._lifePoints;
   }
 
-  attack(enemy: Fighter): void {
-    throw new Error('Method not implemented.');
-  }
+  // attack(enemy: Fighter): void {
+  //   throw new Error('Method not implemented.');
+  // }
 
-  special?(enemy: Fighter): void {
-    throw new Error('Method not implemented.');
-  }
+  // special?(enemy: Fighter): void {
+  //   throw new Error('Method not implemented.');
+  // }
 
-  levelUp(): void {
-    throw new Error('Method not implemented.');
-  }
+  // levelUp(): void {
+  //   throw new Error('Method not implemented.');
+  // }
 
-  receiveDamage(amount: number): number {
-    throw new Error('Method not implemented.');
-  }
+  // receiveDamage(amount: number): number {
+  //   throw new Error('Method not implemented.');
+  // }
 }
 
 export default Character;
