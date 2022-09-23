@@ -59,10 +59,6 @@ class Character implements Fighter {
     };
   }
 
-  attack(enemy: Fighter): void {
-    enemy.receiveDamage(this._strength);
-  }
-
   levelUp(): void {
     this._maxLifePoints += generateRandomNumber(1, 10);
     this._strength += generateRandomNumber(1, 10);
@@ -76,10 +72,14 @@ class Character implements Fighter {
     this._lifePoints = this._maxLifePoints;
   }
 
-  receiveDamage(amountDamage: number): number {
-    const receivedDamage = this._defense - amountDamage;
+  attack(enemy: Fighter): void {
+    enemy.receiveDamage(this._strength);
+  }
+
+  receiveDamage(attackPoints: number): number {
+    const receivedDamage = attackPoints - this._defense;
     if (receivedDamage > 0) {
-      this._lifePoints -= 1; // n diz qts pontos
+      this._lifePoints -= receivedDamage;
     }
     if (this._lifePoints <= 0) {
       this._lifePoints = -1;
