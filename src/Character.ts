@@ -9,10 +9,10 @@ class Character implements Fighter {
   private _archetype: Archetype;
   private _maxLifePoints: number;
   private _lifePoints: number;
-  private strength: number;
-  private defense: number;
+  private _strength: number;
+  private _defense: number;
   private _dexterity: number;
-  private energy: Energy;
+  private _energy: Energy;
 
   constructor(name: string) {
     this._dexterity = generateRandomNumber(1, 10);
@@ -20,33 +20,72 @@ class Character implements Fighter {
     this._archetype = new Mage(name);
     this._maxLifePoints = this._race.maxLifePoints / 2;
     this._lifePoints = this._maxLifePoints;
-    this.strength = generateRandomNumber(1, 10);
-    this.defense = generateRandomNumber(1, 10);
-    this.energy = {
+    this._strength = generateRandomNumber(1, 10);
+    this._defense = generateRandomNumber(1, 10);
+    this._energy = {
       type_: this._archetype.energyType,
       amount: generateRandomNumber(1, 10),
     };
   }
 
-  get lifePoints() {
+  get race(): Race {
+    return this._race;
+  }
+
+  get archetype(): Archetype {
+    return this._archetype;
+  }
+
+  get lifePoints(): number {
     return this._lifePoints;
   }
 
-  // attack(enemy: Fighter): void {
-  //   throw new Error('Method not implemented.');
-  // }
+  get strength(): number {
+    return this._strength;
+  }
 
-  // special?(enemy: Fighter): void {
-  //   throw new Error('Method not implemented.');
-  // }
+  get defense(): number {
+    return this._defense;
+  }
 
-  // levelUp(): void {
-  //   throw new Error('Method not implemented.');
-  // }
+  get dexterity(): number {
+    return this._dexterity;
+  }
 
-  // receiveDamage(amount: number): number {
-  //   throw new Error('Method not implemented.');
-  // }
+  get energy(): Energy {
+    return {
+      type_: this._energy.type_,
+      amount: this._energy.amount,
+    };
+  }
+
+  attack(enemy: Fighter): void {
+    enemy.receiveDamage(this._strength);
+  }
+
+  levelUp(): void {
+    this._maxLifePoints += generateRandomNumber(1, 10);
+    this._strength += generateRandomNumber(1, 10);
+    this._dexterity += generateRandomNumber(1, 10);
+    this._defense += generateRandomNumber(1, 10);
+    this._energy.amount = 10;
+
+    if (this._maxLifePoints > this._race.maxLifePoints) {
+      this._maxLifePoints = this._race.maxLifePoints;
+    }
+    this._lifePoints = this._maxLifePoints;
+  }
+
+  receiveDamage(amountDamage: number): number {
+    const receivedDamage = this._defense - amountDamage;
+    if (receivedDamage > 0) {
+      this._lifePoints -= 1; // n diz qts pontos
+    }
+    if (this._lifePoints <= 0) {
+      this._lifePoints = -1;
+    }
+    return this._lifePoints;
+  }
 }
 
 export default Character;
