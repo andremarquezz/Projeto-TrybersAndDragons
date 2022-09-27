@@ -1,4 +1,3 @@
-import Fighter from './Fighter';
 import SimpleFighter from './SimpleFighter';
 
 class Monster implements SimpleFighter {
@@ -10,7 +9,7 @@ class Monster implements SimpleFighter {
     this._strength = 63;
   }
 
-  attack(enemy: Fighter): void {
+  attack(enemy: SimpleFighter): void {
     enemy.receiveDamage(this._strength);
   }
 
